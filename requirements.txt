@@ -1,0 +1,19 @@
+ultralytics
+tensorflow==2.16.2      # pinned -- newer builds (2.2x) have no matching tensorflow-metal release yet
+tensorflow-metal==1.2.0; sys_platform == "darwin" and platform_machine == "arm64"   # Apple Silicon GPU plugin, pairs with tensorflow==2.16.2
+scikit-learn==1.7.1      # the SVM, RF, scaler, PCA and KMeans pickles were written by this version
+scikit-image
+opencv-python; sys_platform == "darwin"
+opencv-python-headless; sys_platform != "darwin"   # servers have no display libraries; nothing here uses cv2 windows
+pillow
+numpy<2                # tensorflow==2.16.2 requires numpy<2.0
+pandas
+matplotlib
+seaborn
+pyyaml
+fastapi
+uvicorn[standard]
+python-multipart
+huggingface_hub           # src/fetch_models.py downloads the CNN weights from a Hugging Face repo
+jupyter                 # runs the verification notebooks (jupyter nbconvert --execute)
+jinja2                  # pandas DataFrame.style, used in notebooks/07_intelligent_sensing.ipynb

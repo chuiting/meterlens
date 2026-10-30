@@ -1,0 +1,172 @@
+{
+  "method": "PCA(n_components=0.95) then KMeans(n_clusters=3) on flattened grayscale training crops; anomaly score is Euclidean distance to the nearest cluster centroid",
+  "pca_n_components": 178,
+  "pca_input_dim": 42400,
+  "kmeans_cluster_sizes": [
+    336,
+    180,
+    284
+  ],
+  "flag_rule": "distance > sensing_distance_threshold",
+  "fit_split": "training",
+  "threshold_split": "validation",
+  "selection_rule": "mean + 2*std of the validation distance distribution, read off the histogram by inspection (no grid search, no cross-validation, test split not used)",
+  "sensing_distance_threshold": 9911.4,
+  "validation_mean_distance": 5786.63154073457,
+  "validation_std_distance": 2062.372669497838,
+  "degradation_probe": {
+    "baseline": 2295.4586405581445,
+    "blur 15x15": 2216.815967828888,
+    "darken x0.3": 8240.126254491419,
+    "brighten x2.0": 5115.187525346442,
+    "finger over 1 digit": 2386.981699851328
+  },
+  "degradation_probe_note": "measured, not assumed: a strong brightness shift (severe darkening, overexposure) or a glare-like patch moves the distance far from every training centroid and is reliably caught; moderate blur and a small solid occlusion barely move it, and blur can pull it slightly closer to a centroid -- raw-pixel Euclidean distance is dominated by overall intensity level, not the fine edge detail blur destroys or a patch covers",
+  "flag_rates": {
+    "training": {
+      "ground_truth_crops": {
+        "flag_rate": 0.055,
+        "flagged": 44,
+        "n": 800
+      }
+    },
+    "validation": {
+      "ground_truth_crops": {
+        "flag_rate": 0.05,
+        "flagged": 20,
+        "n": 400
+      },
+      "detector_crops": {
+        "flag_rate": 0.020253164556962026,
+        "flagged": 8,
+        "n": 395
+      }
+    },
+    "testing": {
+      "ground_truth_crops": {
+        "flag_rate": 0.01875,
+        "flagged": 15,
+        "n": 800
+      },
+      "detector_crops": {
+        "flag_rate": 0.020075282308657464,
+        "flagged": 16,
+        "n": 797
+      }
+    }
+  },
+  "recognition_error_by_flag": {
+    "validation": {
+      "n_matched": 400,
+      "flagged_error_rate": 0.4,
+      "flagged_n": 20,
+      "passed_error_rate": 0.15263157894736845,
+      "passed_n": 380,
+      "error_rate_by_distance_quintile": [
+        {
+          "distance_low": 2295.4586405581445,
+          "distance_high": 4077.015062842915,
+          "n": 80,
+          "error_rate": 0.15000000000000002
+        },
+        {
+          "distance_low": 4077.015062842915,
+          "distance_high": 4855.828005862132,
+          "n": 80,
+          "error_rate": 0.13749999999999996
+        },
+        {
+          "distance_low": 4855.828005862132,
+          "distance_high": 5832.975319537151,
+          "n": 80,
+          "error_rate": 0.11250000000000004
+        },
+        {
+          "distance_low": 5832.975319537151,
+          "distance_high": 7314.851199890976,
+          "n": 80,
+          "error_rate": 0.17500000000000004
+        },
+        {
+          "distance_low": 7314.851199890976,
+          "distance_high": 13129.91713009024,
+          "n": 80,
+          "error_rate": 0.25
+        }
+      ]
+    },
+    "testing": {
+      "n_matched": 800,
+      "flagged_error_rate": 0.6,
+      "flagged_n": 15,
+      "passed_error_rate": 0.17834394904458595,
+      "passed_n": 785,
+      "error_rate_by_distance_quintile": [
+        {
+          "distance_low": 2170.2077060502234,
+          "distance_high": 4038.3211290432514,
+          "n": 160,
+          "error_rate": 0.15625
+        },
+        {
+          "distance_low": 4038.3211290432514,
+          "distance_high": 4777.537541397613,
+          "n": 160,
+          "error_rate": 0.11875000000000002
+        },
+        {
+          "distance_low": 4777.537541397613,
+          "distance_high": 5639.286284647663,
+          "n": 160,
+          "error_rate": 0.15625
+        },
+        {
+          "distance_low": 5639.286284647663,
+          "distance_high": 6824.783204793875,
+          "n": 160,
+          "error_rate": 0.21875
+        },
+        {
+          "distance_low": 6824.783204793875,
+          "distance_high": 12022.590897385788,
+          "n": 160,
+          "error_rate": 0.28125
+        }
+      ]
+    }
+  },
+  "recognition_error_note": "spot-checking flagged crops by eye, most remain readable to a person -- the gate is not a human-readability detector. Cross-checking against the fused recognizer's own correctness instead (not just a visual impression) shows flagged crops do carry a meaningfully higher model error rate, with a roughly monotonic trend across distance quintiles -- so the flag tracks 'the model is more likely to be wrong here', not 'a human would refuse to read this'",
+  "branch_examples": [
+    {
+      "basename": "meter0887",
+      "distance": 13129.91713009024,
+      "flag": true
+    },
+    {
+      "basename": "meter1132",
+      "distance": 2295.4586405581445,
+      "flag": false
+    }
+  ],
+  "distance_summary": {
+    "training": {
+      "min": 2547.8990913393104,
+      "median": 5739.3535161032,
+      "max": 13456.28978675135,
+      "n": 800
+    },
+    "validation": {
+      "min": 2295.4586405581445,
+      "median": 5246.997779705641,
+      "max": 13129.91713009024,
+      "n": 400
+    },
+    "testing": {
+      "min": 2170.2077060502234,
+      "median": 5131.436357502313,
+      "max": 12022.590897385788,
+      "n": 800
+    }
+  },
+  "limitations": "raw-pixel PCA+KMeans distance is primarily a brightness/exposure and gross-appearance anomaly detector, not a general catch-all: it does not reliably catch blur or small occlusions (see degradation_probe). It also does not detect human-unreadability -- flagged crops are mostly still legible by eye (see recognition_error_note); what it tracks is atypicality relative to the training distribution, which happens to correlate with higher model error but is a different thing from photo quality as a person would judge it, so a 'retake recommended' message overstates what is known. It cannot say why a crop was flagged, and with no labelled quality data the threshold rests on visual inspection of the validation histogram, not measured precision/recall against real bad photos"
+}

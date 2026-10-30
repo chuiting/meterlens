@@ -1,0 +1,532 @@
+{
+  "generated": "2026-10-08 17:09:33",
+  "detection": {
+    "mAP50": 0.988548063946289,
+    "mAP50-95": 0.7244390947995254,
+    "precision": 0.9707884450290213,
+    "recall": 0.98125,
+    "mean_iou": 0.8545828044000736,
+    "median_iou": 0.8747210312442074,
+    "iou_below_0.5": 10,
+    "misses": 3,
+    "n_images": 800,
+    "note": "IoU is for the highest-confidence box, the one the pipeline uses; misses count as IoU 0"
+  },
+  "recognition_ground_truth_crops": {
+    "validation": {
+      "cnn": {
+        "full_sequence_accuracy": 0.7975,
+        "per_digit_accuracy": [
+          0.945,
+          0.95,
+          0.9725,
+          0.95,
+          0.87
+        ]
+      },
+      "cnn_rgb": {
+        "full_sequence_accuracy": 0.775,
+        "per_digit_accuracy": [
+          0.9125,
+          0.955,
+          0.96,
+          0.9525,
+          0.8775
+        ]
+      },
+      "svm": {
+        "full_sequence_accuracy": 0.5375,
+        "per_digit_accuracy": [
+          0.825,
+          0.8625,
+          0.91,
+          0.885,
+          0.725
+        ]
+      },
+      "rf": {
+        "full_sequence_accuracy": 0.385,
+        "per_digit_accuracy": [
+          0.7275,
+          0.775,
+          0.85,
+          0.835,
+          0.65
+        ]
+      },
+      "fused": {
+        "full_sequence_accuracy": 0.835,
+        "per_digit_accuracy": [
+          0.96,
+          0.97,
+          0.98,
+          0.9625,
+          0.8825
+        ],
+        "members": [
+          "cnn",
+          "cnn_rgb",
+          "svm"
+        ]
+      }
+    },
+    "testing": {
+      "cnn": {
+        "full_sequence_accuracy": 0.7775,
+        "per_digit_accuracy": [
+          0.94125,
+          0.95125,
+          0.95375,
+          0.95625,
+          0.87875
+        ]
+      },
+      "cnn_rgb": {
+        "full_sequence_accuracy": 0.75625,
+        "per_digit_accuracy": [
+          0.94375,
+          0.9475,
+          0.9525,
+          0.95125,
+          0.85
+        ]
+      },
+      "svm": {
+        "full_sequence_accuracy": 0.55,
+        "per_digit_accuracy": [
+          0.85,
+          0.89375,
+          0.90625,
+          0.88625,
+          0.74875
+        ]
+      },
+      "rf": {
+        "full_sequence_accuracy": 0.405,
+        "per_digit_accuracy": [
+          0.7975,
+          0.82125,
+          0.845,
+          0.8275,
+          0.67
+        ]
+      },
+      "fused": {
+        "full_sequence_accuracy": 0.81375,
+        "per_digit_accuracy": [
+          0.95875,
+          0.9675,
+          0.96125,
+          0.965,
+          0.8875
+        ],
+        "members": [
+          "cnn",
+          "cnn_rgb",
+          "svm"
+        ]
+      }
+    }
+  },
+  "confusion": {
+    "top_confusions": [
+      [
+        1,
+        0,
+        13
+      ],
+      [
+        0,
+        1,
+        11
+      ],
+      [
+        9,
+        0,
+        10
+      ],
+      [
+        4,
+        2,
+        9
+      ],
+      [
+        8,
+        6,
+        8
+      ],
+      [
+        3,
+        2,
+        6
+      ],
+      [
+        8,
+        7,
+        6
+      ],
+      [
+        9,
+        3,
+        6
+      ],
+      [
+        0,
+        9,
+        5
+      ],
+      [
+        5,
+        6,
+        5
+      ]
+    ],
+    "digit_accuracy": 0.948
+  },
+  "decision_ground_truth_crops": {
+    "threshold": 0.48,
+    "validation": {
+      "flag_rate": 0.2725,
+      "errors_caught": 0.9242424242424242,
+      "approved_accuracy": 0.9828178694158075,
+      "errors_approved": 5
+    },
+    "testing": {
+      "flag_rate": 0.26125,
+      "errors_caught": 0.8657718120805369,
+      "approved_accuracy": 0.9661590524534687,
+      "errors_approved": 20
+    }
+  },
+  "end_to_end_validation": {
+    "n_images": 400,
+    "detector_misses": 5,
+    "members": {
+      "cnn": {
+        "full_sequence_accuracy": 0.795,
+        "per_digit_accuracy": [
+          0.9316455696202531,
+          0.9341772151898734,
+          0.9620253164556962,
+          0.9518987341772152,
+          0.8911392405063291
+        ]
+      },
+      "cnn_rgb": {
+        "full_sequence_accuracy": 0.7675,
+        "per_digit_accuracy": [
+          0.9063291139240506,
+          0.9139240506329114,
+          0.9544303797468354,
+          0.9468354430379747,
+          0.8936708860759494
+        ]
+      },
+      "svm": {
+        "full_sequence_accuracy": 0.51,
+        "per_digit_accuracy": [
+          0.779746835443038,
+          0.8354430379746836,
+          0.9088607594936708,
+          0.8632911392405064,
+          0.739240506329114
+        ]
+      }
+    },
+    "fused": {
+      "full_sequence_accuracy": 0.8075,
+      "per_digit_accuracy_on_detected": [
+        0.9265822784810127,
+        0.9468354430379747,
+        0.9620253164556962,
+        0.9493670886075949,
+        0.8936708860759494
+      ]
+    },
+    "decision": {
+      "threshold": 0.48,
+      "flag_rate": 0.2875,
+      "errors_caught": 0.961038961038961,
+      "approved_count": 285,
+      "approved_accuracy": 0.9894736842105263,
+      "errors_approved": 3
+    },
+    "note": "misses count as wrong, flagged readings; per-member and per-digit rates are over detected images except full_sequence_accuracy, which is over all images"
+  },
+  "end_to_end_test": {
+    "n_images": 800,
+    "detector_misses": 3,
+    "members": {
+      "cnn": {
+        "full_sequence_accuracy": 0.76375,
+        "per_digit_accuracy": [
+          0.9272271016311167,
+          0.9435382685069009,
+          0.9397741530740276,
+          0.9272271016311167,
+          0.8657465495608532
+        ]
+      },
+      "cnn_rgb": {
+        "full_sequence_accuracy": 0.73625,
+        "per_digit_accuracy": [
+          0.9159347553324969,
+          0.9284818067754078,
+          0.9435382685069009,
+          0.9473023839397742,
+          0.8469259723964868
+        ]
+      },
+      "svm": {
+        "full_sequence_accuracy": 0.51875,
+        "per_digit_accuracy": [
+          0.7992471769134254,
+          0.8519447929736512,
+          0.8933500627352572,
+          0.8745294855708908,
+          0.7227101631116688
+        ]
+      }
+    },
+    "fused": {
+      "full_sequence_accuracy": 0.7925,
+      "per_digit_accuracy_on_detected": [
+        0.9335006273525721,
+        0.9485570890840652,
+        0.9498117942283564,
+        0.9523212045169385,
+        0.8782936010037641
+      ]
+    },
+    "decision": {
+      "threshold": 0.48,
+      "flag_rate": 0.28875,
+      "errors_caught": 0.8433734939759037,
+      "approved_count": 569,
+      "approved_accuracy": 0.9543057996485061,
+      "errors_approved": 26
+    },
+    "note": "misses count as wrong, flagged readings; per-member and per-digit rates are over detected images except full_sequence_accuracy, which is over all images"
+  },
+  "failures": {
+    "gallery_count": 24,
+    "wrong_readings": 166,
+    "wrong_and_approved": 26,
+    "listed": [
+      {
+        "basename": "meter1919",
+        "truth": "09174",
+        "read": "36539",
+        "confidence": 0.8938,
+        "decision": "APPROVED"
+      },
+      {
+        "basename": "meter1436",
+        "truth": "20745",
+        "read": "20742",
+        "confidence": 0.8348,
+        "decision": "APPROVED"
+      },
+      {
+        "basename": "meter1468",
+        "truth": "02476",
+        "read": "02477",
+        "confidence": 0.8072,
+        "decision": "APPROVED"
+      },
+      {
+        "basename": "meter1714",
+        "truth": "09404",
+        "read": "19404",
+        "confidence": 0.6475,
+        "decision": "APPROVED"
+      },
+      {
+        "basename": "meter1709",
+        "truth": "04095",
+        "read": "14095",
+        "confidence": 0.6438,
+        "decision": "APPROVED"
+      },
+      {
+        "basename": "meter1725",
+        "truth": "09839",
+        "read": "19839",
+        "confidence": 0.5851,
+        "decision": "APPROVED"
+      },
+      {
+        "basename": "meter1438",
+        "truth": "69210",
+        "read": "09210",
+        "confidence": 0.5761,
+        "decision": "APPROVED"
+      },
+      {
+        "basename": "meter1658",
+        "truth": "16253",
+        "read": "16252",
+        "confidence": 0.5523,
+        "decision": "APPROVED"
+      },
+      {
+        "basename": "meter1644",
+        "truth": "12630",
+        "read": "12639",
+        "confidence": 0.5341,
+        "decision": "APPROVED"
+      },
+      {
+        "basename": "meter1659",
+        "truth": "21696",
+        "read": "01696",
+        "confidence": 0.5337,
+        "decision": "APPROVED"
+      },
+      {
+        "basename": "meter1729",
+        "truth": "06407",
+        "read": "08407",
+        "confidence": 0.5247,
+        "decision": "APPROVED"
+      },
+      {
+        "basename": "meter1395",
+        "truth": "18711",
+        "read": "08711",
+        "confidence": 0.5189,
+        "decision": "APPROVED"
+      },
+      {
+        "basename": "meter1291",
+        "truth": "09305",
+        "read": "99464",
+        "confidence": 0.5128,
+        "decision": "APPROVED"
+      },
+      {
+        "basename": "meter1202",
+        "truth": "05866",
+        "read": "05865",
+        "confidence": 0.5118,
+        "decision": "APPROVED"
+      },
+      {
+        "basename": "meter1898",
+        "truth": "06216",
+        "read": "06215",
+        "confidence": 0.5051,
+        "decision": "APPROVED"
+      },
+      {
+        "basename": "meter1444",
+        "truth": "50904",
+        "read": "50901",
+        "confidence": 0.5046,
+        "decision": "APPROVED"
+      },
+      {
+        "basename": "meter1471",
+        "truth": "00439",
+        "read": "00239",
+        "confidence": 0.5023,
+        "decision": "APPROVED"
+      },
+      {
+        "basename": "meter1942",
+        "truth": "02220",
+        "read": "12220",
+        "confidence": 0.5008,
+        "decision": "APPROVED"
+      },
+      {
+        "basename": "meter1944",
+        "truth": "06561",
+        "read": "05610",
+        "confidence": 0.4941,
+        "decision": "APPROVED"
+      },
+      {
+        "basename": "meter1788",
+        "truth": "10823",
+        "read": "10633",
+        "confidence": 0.4932,
+        "decision": "APPROVED"
+      },
+      {
+        "basename": "meter1733",
+        "truth": "00001",
+        "read": "11379",
+        "confidence": 0.4901,
+        "decision": "APPROVED"
+      },
+      {
+        "basename": "meter1382",
+        "truth": "43885",
+        "read": "13883",
+        "confidence": 0.488,
+        "decision": "APPROVED"
+      },
+      {
+        "basename": "meter1602",
+        "truth": "07050",
+        "read": "07000",
+        "confidence": 0.4877,
+        "decision": "APPROVED"
+      },
+      {
+        "basename": "meter1428",
+        "truth": "05328",
+        "read": "05327",
+        "confidence": 0.4856,
+        "decision": "APPROVED"
+      }
+    ]
+  },
+  "published_baseline": {
+    "source": "Laroca et al. 2019, arXiv 1902.09600, Table 7 (UFPR-AMR test split, detector-cropped counters, mean of 10 runs)",
+    "rows": [
+      {
+        "approach": "Multi-task CNN, original training set",
+        "digit_accuracy": 24.64,
+        "full_reading_accuracy": 0.0
+      },
+      {
+        "approach": "Multi-task CNN, with synthesised data",
+        "digit_accuracy": 95.96,
+        "full_reading_accuracy": 87.69
+      },
+      {
+        "approach": "CRNN, with synthesised data",
+        "digit_accuracy": 97.87,
+        "full_reading_accuracy": 92.3
+      },
+      {
+        "approach": "CR-NET (per-digit detector), with synthesised data",
+        "digit_accuracy": 98.3,
+        "full_reading_accuracy": 94.13
+      }
+    ],
+    "ours": {
+      "fused, ground-truth crops (recognition stage)": {
+        "digit_accuracy": 94.80000000000001,
+        "full_reading_accuracy": 81.375
+      },
+      "fused, detector crops (end to end)": {
+        "digit_accuracy": 93.24968632371393,
+        "full_reading_accuracy": 79.25
+      },
+      "from-scratch CNN alone, ground-truth crops": {
+        "digit_accuracy": 93.625,
+        "full_reading_accuracy": 77.75
+      }
+    },
+    "caption": "Published rows are a 10-run mean on detector-cropped counters; ours are single runs. Full-reading accuracy = all five digits correct in both."
+  },
+  "figures": [
+    "iou_histogram.png",
+    "confusion_matrix.png",
+    "confidence_vs_correctness.png",
+    "failure_gallery.jpg"
+  ]
+}

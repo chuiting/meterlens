@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Meter Lens</title>
+<link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script>
+  // visible height on phones
+  (function () {
+    var set = function () { document.documentElement.style.setProperty('--vh-px', window.innerHeight + 'px'); };
+    set();
+    window.addEventListener('resize', set);
+    window.addEventListener('orientationchange', set);
+    if (window.visualViewport) window.visualViewport.addEventListener('resize', set);
+  })();
+</script>
+</head>
+<body>
+<div id="app">
+
+  <!-- ============ splash ============ -->
+  <section data-screen="splash" class="splash" id="splash">
+    <div class="splash-radial"></div>
+    <div class="splash-glow"></div>
+    <div class="splash-scan"></div>
+    <div class="splash-logo">
+      <img src="logo.png" alt="Meter Lens logo">
+      <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+      <div class="splash-badge">conf 98%</div>
+    </div>
+    <div class="splash-tagline">Automated meter reading.<br>From image to insight.</div>
+    <div class="splash-footer">
+      <div class="splash-status" id="splashStatus">Detecting meter…</div>
+      <div class="splash-bar"><div></div></div>
+    </div>
+  </section>
+
+  <!-- ============ capture ============ -->
+  <section data-screen="capture">
+    <div class="topbar">
+      <div class="brand">Meter Lens</div>
+      <button class="iconbtn" data-action="history" title="History">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M12 8v5l3 2" stroke="#D9661E" stroke-width="2" stroke-linecap="round"/><path d="M3 12a9 9 0 1 0 3-6.7" stroke="#D9661E" stroke-width="2" stroke-linecap="round"/><path d="M3 5v4h4" stroke="#D9661E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+    <div class="hint">Position the reading digits inside the frame</div>
+    <div class="frame" id="frame">
+      <img id="framePreview" alt="" hidden>
+      <div class="placeholder" id="framePlaceholder">Tap the shutter to take a photo of the meter,<br>the gallery button to choose one,<br>or the right button to try a sample</div>
+      <div class="fc tl"></div><div class="fc tr"></div><div class="fc bl"></div><div class="fc br"></div>
+    </div>
+    <div class="shutter-row">
+      <button class="sidebtn" data-action="gallery" title="Choose from gallery">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="3" stroke="#8A7362" stroke-width="2"/><circle cx="8.5" cy="8.5" r="1.5" fill="#8A7362"/><path d="M21 15l-5-5-5 5-3-3-5 5" stroke="#8A7362" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="shutter" data-action="shutter" title="Take photo"><div></div></button>
+      <button class="sidebtn" data-action="samples" title="Try a sample photo">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="7" width="14" height="14" rx="3" stroke="#8A7362" stroke-width="2"/><path d="M7 7V6a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3h-1" stroke="#8A7362" stroke-width="2" stroke-linecap="round"/><path d="M17 17l-4-4-3 3-2-2-5 5" stroke="#8A7362" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+    <!-- capture="environment" opens the rear camera on phones; desktops get a file picker -->
+    <input type="file" id="cameraInput" accept="image/*" capture="environment" hidden>
+    <input type="file" id="galleryInput" accept="image/*" hidden>
+  </section>
+
+  <!-- ============ scanning ============ -->
+  <section data-screen="scanning" class="scanning">
+    <div class="photo" id="scanPhoto"><img id="scanImg" alt=""></div>
+    <div class="scan-dim"></div>
+    <div class="scan-line" id="scanLine"></div>
+    <div class="scan-status"><div><div class="spinner"></div><span id="scanStatus">Detecting reading…</span></div></div>
+  </section>
+
+  <!-- ============ result ============ -->
+  <section data-screen="result">
+    <div class="topbar">
+      <button class="iconbtn sm" data-action="retake" title="Back">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 6l-7 6 7 6" stroke="#D9661E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="title" id="resultTitle">Reading detected</div>
+      <div style="width:36px"></div>
+    </div>
+    <div class="photo" id="resultPhoto" style="height:210px"><img id="resultImg" alt=""></div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-label">Meter reading</div>
+        <div class="pill" id="resultPill">–</div>
+      </div>
+      <div class="reading"><span id="resultReading">–</span><span class="unit">kWh</span></div>
+      <div class="meta-row"><div class="ts" id="resultTs"></div><div class="decision" id="resultDecision"></div></div>
+    </div>
+    <div class="card">
+      <div class="card-label">Per-digit confidence</div>
+      <div class="chips" id="resultChips"></div>
+    </div>
+    <div class="card" id="resultFeedback">
+      <div class="card-label">Is this reading correct? <span class="required">required</span></div>
+      <div id="resultFeedbackBody"></div>
+    </div>
+    <div class="actions">
+      <button class="btn primary" data-action="save" id="saveBtn">Save to history</button>
+      <button class="btn ghost" data-action="retake">Retake photo</button>
+    </div>
+  </section>
+
+  <!-- ============ history ============ -->
+  <section data-screen="history">
+    <div class="topbar">
+      <div class="brand">History</div>
+      <button class="iconbtn" data-action="capture" title="Capture">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><rect x="3" y="7" width="18" height="14" rx="3" stroke="#D9661E" stroke-width="2"/><path d="M8 7l1.5-3h5L16 7" stroke="#D9661E" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="14" r="3.5" stroke="#D9661E" stroke-width="2"/></svg>
+      </button>
+    </div>
+    <div class="list" id="historyList"></div>
+  </section>
+
+  <!-- ============ detail ============ -->
+  <section data-screen="detail">
+    <div class="topbar left">
+      <button class="iconbtn sm" data-action="history" title="Back">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 6l-7 6 7 6" stroke="#D9661E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="title">Reading detail</div>
+    </div>
+    <div class="section-label">Original Photo <span class="section-hint">(Tap to view full image)</span></div>
+    <div class="photo original" data-action="zoom"><img id="detailImgSmall" alt=""></div>
+    <div class="section-label">System detection</div>
+    <div class="photo medium" id="detailPhoto"><img id="detailImg" alt=""></div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-label">Meter reading</div>
+        <div class="pill" id="detailPill">–</div>
+      </div>
+      <div class="reading"><span id="detailReading">–</span><span class="unit">kWh</span></div>
+      <div class="meta-row"><div class="ts" id="detailTs"></div><div class="decision" id="detailDecision"></div></div>
+    </div>
+    <div class="card">
+      <div class="card-label">Per-digit confidence</div>
+      <div class="chips" id="detailChips"></div>
+    </div>
+    <div class="card">
+      <div class="card-label">Verification trace</div>
+      <div class="trace" id="detailTrace"></div>
+    </div>
+    <div class="actions">
+      <button class="btn ghost" data-action="delete">Delete reading</button>
+    </div>
+  </section>
+
+</div>
+<!-- full-size photo viewer -->
+<div class="lightbox" id="lightbox" hidden>
+  <img id="lightboxImg" alt="" draggable="false">
+  <button class="lightbox-close" data-action="zoom-close" title="Close">&#10005;</button>
+  <div class="lightbox-hint">Pinch or double-tap to zoom &middot; tap to close</div>
+</div>
+
+<div class="modal-overlay" id="samplesModal" hidden>
+  <div class="modal-card samples-card" role="dialog" aria-labelledby="samplesTitle">
+    <div class="modal-title" id="samplesTitle">Try a sample photo</div>
+    <div class="modal-body">No meter on hand? Pick one of these to get started!</div>
+    <div class="samples-grid" id="samplesGrid"></div>
+    <div class="modal-actions"><button class="btn ghost" data-action="samples-close">Cancel</button></div>
+  </div>
+</div>
+<div class="modal-overlay" id="sensingModal" hidden>
+  <div class="modal-card" role="alertdialog" aria-labelledby="sensingModalTitle">
+    <div class="modal-icon">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="#B4791F" stroke-width="2.4" stroke-linecap="round"/><path d="M10.3 3.9L2.5 18a2 2 0 0 0 1.7 3h15.6a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z" stroke="#B4791F" stroke-width="2"/></svg>
+    </div>
+    <div class="modal-title" id="sensingModalTitle">Unusual Photo Detected</div>
+    <div class="modal-body" id="sensingModalBody"></div>
+    <div class="modal-actions">
+      <button class="btn primary" data-action="sensing-retake">Retake Photo</button>
+      <button class="btn ghost" data-action="sensing-use-anyway">Use Anyway</button>
+    </div>
+  </div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

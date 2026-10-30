@@ -1,0 +1,328 @@
+{
+  "classifier": "Random Forest",
+  "hog": {
+    "hog_orientations": 9,
+    "hog_pixels_per_cell": [
+      8,
+      8
+    ],
+    "hog_cells_per_block": [
+      2,
+      2
+    ]
+  },
+  "deployed_variant": "counter_strips",
+  "variants": {
+    "digit_crops": {
+      "role": "reference",
+      "grid_search": {
+        "log": [
+          {
+            "n_estimators": 100,
+            "max_depth": 10,
+            "val_per_digit_accuracy": 0.915
+          },
+          {
+            "n_estimators": 100,
+            "max_depth": 20,
+            "val_per_digit_accuracy": 0.923
+          },
+          {
+            "n_estimators": 100,
+            "max_depth": null,
+            "val_per_digit_accuracy": 0.92
+          },
+          {
+            "n_estimators": 300,
+            "max_depth": 10,
+            "val_per_digit_accuracy": 0.9175
+          },
+          {
+            "n_estimators": 300,
+            "max_depth": 20,
+            "val_per_digit_accuracy": 0.92
+          },
+          {
+            "n_estimators": 300,
+            "max_depth": null,
+            "val_per_digit_accuracy": 0.921
+          },
+          {
+            "n_estimators": 500,
+            "max_depth": 10,
+            "val_per_digit_accuracy": 0.916
+          },
+          {
+            "n_estimators": 500,
+            "max_depth": 20,
+            "val_per_digit_accuracy": 0.922
+          },
+          {
+            "n_estimators": 500,
+            "max_depth": null,
+            "val_per_digit_accuracy": 0.923
+          }
+        ],
+        "best_params": {
+          "n_estimators": 100,
+          "max_depth": 20
+        },
+        "best_val_per_digit_accuracy": 0.923
+      },
+      "evaluation": {
+        "validation": {
+          "ground_truth_digit_crops": {
+            "per_digit_accuracy": 0.923,
+            "full_sequence_accuracy": 0.75
+          },
+          "ground_truth_counter_strips": {
+            "per_digit_accuracy": 0.4875,
+            "full_sequence_accuracy": 0.135
+          },
+          "predicted_crops": {
+            "equal_width": {
+              "per_digit_accuracy": 0.479493670886076,
+              "full_sequence_accuracy": 0.1025,
+              "detector_miss_count": 5,
+              "detector_miss_rate": 0.0125,
+              "n_images": 400
+            },
+            "projection_profile": {
+              "per_digit_accuracy": 0.41012658227848103,
+              "full_sequence_accuracy": 0.1025,
+              "detector_miss_count": 5,
+              "detector_miss_rate": 0.0125,
+              "n_images": 400
+            }
+          }
+        },
+        "testing": {
+          "ground_truth_digit_crops": {
+            "per_digit_accuracy": 0.92,
+            "full_sequence_accuracy": 0.71875
+          },
+          "ground_truth_counter_strips": {
+            "per_digit_accuracy": 0.49325,
+            "full_sequence_accuracy": 0.14625
+          },
+          "predicted_crops": {
+            "equal_width": {
+              "per_digit_accuracy": 0.4938519447929737,
+              "full_sequence_accuracy": 0.12625,
+              "detector_miss_count": 3,
+              "detector_miss_rate": 0.00375,
+              "n_images": 800
+            },
+            "projection_profile": {
+              "per_digit_accuracy": 0.4178168130489335,
+              "full_sequence_accuracy": 0.09375,
+              "detector_miss_count": 3,
+              "detector_miss_rate": 0.00375,
+              "n_images": 800
+            }
+          }
+        }
+      },
+      "feature_importances_top10": [
+        [
+          18,
+          0.019819286901730515
+        ],
+        [
+          134,
+          0.014736291767497425
+        ],
+        [
+          95,
+          0.014460467791712665
+        ],
+        [
+          162,
+          0.01367989755279607
+        ],
+        [
+          108,
+          0.01273858286388275
+        ],
+        [
+          254,
+          0.012704024621874477
+        ],
+        [
+          225,
+          0.012561528281737748
+        ],
+        [
+          216,
+          0.012048216333362161
+        ],
+        [
+          68,
+          0.011588551546734398
+        ],
+        [
+          26,
+          0.011228523499966064
+        ]
+      ]
+    },
+    "counter_strips": {
+      "role": "deployed",
+      "grid_search": {
+        "log": [
+          {
+            "n_estimators": 100,
+            "max_depth": 10,
+            "val_per_digit_accuracy": 0.7385
+          },
+          {
+            "n_estimators": 100,
+            "max_depth": 20,
+            "val_per_digit_accuracy": 0.7505
+          },
+          {
+            "n_estimators": 100,
+            "max_depth": null,
+            "val_per_digit_accuracy": 0.7555
+          },
+          {
+            "n_estimators": 300,
+            "max_depth": 10,
+            "val_per_digit_accuracy": 0.7425
+          },
+          {
+            "n_estimators": 300,
+            "max_depth": 20,
+            "val_per_digit_accuracy": 0.7605
+          },
+          {
+            "n_estimators": 300,
+            "max_depth": null,
+            "val_per_digit_accuracy": 0.7665
+          },
+          {
+            "n_estimators": 500,
+            "max_depth": 10,
+            "val_per_digit_accuracy": 0.739
+          },
+          {
+            "n_estimators": 500,
+            "max_depth": 20,
+            "val_per_digit_accuracy": 0.7675
+          },
+          {
+            "n_estimators": 500,
+            "max_depth": null,
+            "val_per_digit_accuracy": 0.7655
+          }
+        ],
+        "best_params": {
+          "n_estimators": 500,
+          "max_depth": 20
+        },
+        "best_val_per_digit_accuracy": 0.7675
+      },
+      "evaluation": {
+        "validation": {
+          "ground_truth_digit_crops": {
+            "per_digit_accuracy": 0.819,
+            "full_sequence_accuracy": 0.4675
+          },
+          "ground_truth_counter_strips": {
+            "per_digit_accuracy": 0.7675,
+            "full_sequence_accuracy": 0.385
+          },
+          "predicted_crops": {
+            "equal_width": {
+              "per_digit_accuracy": 0.7529113924050633,
+              "full_sequence_accuracy": 0.3475,
+              "detector_miss_count": 5,
+              "detector_miss_rate": 0.0125,
+              "n_images": 400
+            },
+            "projection_profile": {
+              "per_digit_accuracy": 0.5959493670886076,
+              "full_sequence_accuracy": 0.1775,
+              "detector_miss_count": 5,
+              "detector_miss_rate": 0.0125,
+              "n_images": 400
+            }
+          }
+        },
+        "testing": {
+          "ground_truth_digit_crops": {
+            "per_digit_accuracy": 0.82575,
+            "full_sequence_accuracy": 0.47
+          },
+          "ground_truth_counter_strips": {
+            "per_digit_accuracy": 0.79225,
+            "full_sequence_accuracy": 0.405
+          },
+          "predicted_crops": {
+            "equal_width": {
+              "per_digit_accuracy": 0.7698870765370138,
+              "full_sequence_accuracy": 0.36375,
+              "detector_miss_count": 3,
+              "detector_miss_rate": 0.00375,
+              "n_images": 800
+            },
+            "projection_profile": {
+              "per_digit_accuracy": 0.6145545796737767,
+              "full_sequence_accuracy": 0.19375,
+              "detector_miss_count": 3,
+              "detector_miss_rate": 0.00375,
+              "n_images": 800
+            }
+          }
+        }
+      },
+      "feature_importances_top10": [
+        [
+          170,
+          0.01265268668729916
+        ],
+        [
+          162,
+          0.012259448838393085
+        ],
+        [
+          154,
+          0.011019465075544846
+        ],
+        [
+          260,
+          0.010982572019929436
+        ],
+        [
+          252,
+          0.01064374859598039
+        ],
+        [
+          152,
+          0.01025421092397956
+        ],
+        [
+          254,
+          0.009251575968634372
+        ],
+        [
+          181,
+          0.00912354035355158
+        ],
+        [
+          144,
+          0.009117411471160653
+        ],
+        [
+          62,
+          0.009089168161389254
+        ]
+      ]
+    }
+  },
+  "segmentation_choice": {
+    "chosen": "equal_width",
+    "selected_on": "validation",
+    "reason": "equal-width strips matched or beat projection-profile cutting on the validation split, consistent with the near-uniform digit spacing on these mechanical counters"
+  }
+}

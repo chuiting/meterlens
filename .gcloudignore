@@ -1,0 +1,25 @@
+.git
+storage
+runs
+models/*.h5
+results/cnn/rounds
+notebooks
+**/__pycache__
+**/.ipynb_checkpoints
+.claude
+.DS_Store
+# dataset: only the small detector crops for validation/testing go into the image
+# (the Datasets tab's thumbnails); raw photos and training sets stay out
+data/raw
+data/yolo
+data/recognition/training
+data/recognition/*/counters
+data/recognition/*/counters_margin
+data/recognition/*/digits
+data/recognition/*/*.json
+# reference model variants the server never loads
+models/rf.pkl
+models/rf_digit_crops.pkl
+models/svm_digit_crops.pkl
+models/hog_scaler_digit_crops.pkl
+models/yolov8n.pt

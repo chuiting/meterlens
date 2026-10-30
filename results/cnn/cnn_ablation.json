@@ -1,0 +1,142 @@
+[
+  {
+    "step": "baseline",
+    "val_full_sequence_accuracy": 0.125,
+    "val_per_digit_accuracy": [
+      0.715,
+      0.5875,
+      0.66,
+      0.5725,
+      0.3925
+    ],
+    "epochs_trained": 91,
+    "input_channels": 3,
+    "eval_crop_margin": 0.0,
+    "source": "RGB input, tight ground-truth crop (seeded run reused from the round-5 ablation)"
+  },
+  {
+    "step": "+he_init",
+    "val_full_sequence_accuracy": 0.145,
+    "val_per_digit_accuracy": [
+      0.77,
+      0.635,
+      0.7325,
+      0.6425,
+      0.4575
+    ],
+    "epochs_trained": 71,
+    "input_channels": 3,
+    "eval_crop_margin": 0.0,
+    "source": "RGB input, tight ground-truth crop (seeded run reused from the round-5 ablation)"
+  },
+  {
+    "step": "+l2_reg",
+    "val_full_sequence_accuracy": 0.1875,
+    "val_per_digit_accuracy": [
+      0.78,
+      0.6925,
+      0.7775,
+      0.6675,
+      0.475
+    ],
+    "epochs_trained": 100,
+    "input_channels": 3,
+    "eval_crop_margin": 0.0,
+    "source": "RGB input, tight ground-truth crop (seeded run reused from the round-5 ablation)"
+  },
+  {
+    "step": "+lr_step_decay",
+    "val_full_sequence_accuracy": 0.155,
+    "val_per_digit_accuracy": [
+      0.7675,
+      0.6175,
+      0.735,
+      0.6475,
+      0.4675
+    ],
+    "epochs_trained": 100,
+    "input_channels": 3,
+    "eval_crop_margin": 0.0,
+    "source": "RGB input, tight ground-truth crop (seeded run reused from the round-5 ablation)"
+  },
+  {
+    "step": "+augmentation",
+    "val_full_sequence_accuracy": 0.4525,
+    "val_per_digit_accuracy": [
+      0.825,
+      0.875,
+      0.9325,
+      0.8925,
+      0.6275
+    ],
+    "epochs_trained": 264,
+    "input_channels": 3,
+    "eval_crop_margin": 0.0,
+    "source": "RGB input, tight ground-truth crop (seeded run reused from the round-5 ablation)"
+  },
+  {
+    "step": "+digit_permutation",
+    "val_full_sequence_accuracy": 0.78,
+    "val_per_digit_accuracy": [
+      0.93,
+      0.9325,
+      0.965,
+      0.945,
+      0.87
+    ],
+    "val_full_sequence_accuracy_tight_crop": 0.79,
+    "val_per_digit_accuracy_tight_crop": [
+      0.94,
+      0.9425,
+      0.9625,
+      0.945,
+      0.8725
+    ],
+    "eval_crop_margin": 0.02,
+    "epochs_trained": 330,
+    "input_channels": 1,
+    "source": "grayscale input, +2% evaluation crop (round 7)"
+  },
+  {
+    "step": "+real_finetune",
+    "val_full_sequence_accuracy": 0.7975,
+    "val_per_digit_accuracy": [
+      0.945,
+      0.95,
+      0.9725,
+      0.95,
+      0.87
+    ],
+    "val_full_sequence_accuracy_tight_crop": 0.795,
+    "val_per_digit_accuracy_tight_crop": [
+      0.9475,
+      0.9525,
+      0.98,
+      0.96,
+      0.865
+    ],
+    "eval_crop_margin": 0.02,
+    "epochs_trained": 60,
+    "finetune": {
+      "before_val_full_sequence_accuracy": 0.78,
+      "before_val_per_digit_accuracy": [
+        0.93,
+        0.9325,
+        0.965,
+        0.945,
+        0.87
+      ],
+      "after_val_full_sequence_accuracy": 0.7975,
+      "after_val_per_digit_accuracy": [
+        0.945,
+        0.95,
+        0.9725,
+        0.95,
+        0.87
+      ],
+      "kept": true
+    },
+    "input_channels": 1,
+    "source": "grayscale input, +2% evaluation crop (round 7)"
+  }
+]

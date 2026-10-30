@@ -1,0 +1,183 @@
+seed: 42
+
+# CNN weights too large for GitHub; src/fetch_models.py downloads any that are missing
+# (used by the hosted demo; private repo, needs HF_TOKEN).
+model_downloads:
+  cnn_gray.h5: "https://huggingface.co/monsterlum/meterlens-weights/resolve/main/cnn_gray.h5"
+  cnn_rgb.h5: "https://huggingface.co/monsterlum/meterlens-weights/resolve/main/cnn_rgb.h5"
+
+paths:
+  raw_dir: "data/raw"
+  raw_train: "data/raw/training"
+  raw_val: "data/raw/validation"
+  raw_test: "data/raw/testing"
+  dataset_details: "results/data/dataset_details.csv"
+  bbox_verification: "results/data/phase1_bbox_verification.png"
+  augment_demo: "results/data/augment_demo.jpg"
+  yolo_dir: "data/yolo"
+  yolo_data_yaml: "data/yolo/meter_data.yaml"
+  recognition_dir: "data/recognition"
+  models_dir: "models"
+  results_dir: "results"
+  yolo_weights: "models/yolo.pt"
+  yolo_metrics: "results/yolo/yolo_metrics.json"
+  yolo_test_predictions: "results/yolo/yolo_test_predictions.csv"
+  yolo_runs_dir: "data/yolo/runs"            # Ultralytics scratch output (not in git)
+  yolo_training_history: "results/yolo/yolo_training_history.csv"
+  cnn_weights: "models/cnn_gray.h5"
+  cnn_ablation: "results/cnn/cnn_ablation.json"
+  cnn_history: "results/cnn/cnn_history.json"
+  cnn_metrics: "results/cnn/cnn_metrics.json"
+  cnn_val_probs: "results/cnn/cnn_val_probs.npz"
+  cnn_test_probs: "results/cnn/cnn_test_probs.npz"
+  cnn_model_summary: "results/cnn/cnn_model_summary.txt"
+  cnn_classification_report: "results/cnn/cnn_classification_report.json"
+  svm_weights: "models/svm.pkl"                       # deployed: trained on counter strips
+  hog_scaler: "models/hog_scaler.pkl"                 # shared by the strip-trained SVM and RF
+  svm_digit_crop_weights: "models/svm_digit_crops.pkl"   # reference: trained on tight digit crops
+  hog_scaler_digit_crops: "models/hog_scaler_digit_crops.pkl"
+  svm_metrics: "results/svm/svm_metrics.json"
+  svm_val_probs: "results/svm/svm_val_probs.npz"
+  svm_test_probs: "results/svm/svm_test_probs.npz"
+  rf_weights: "models/rf.pkl"                         # deployed variant (strips)
+  rf_digit_crop_weights: "models/rf_digit_crops.pkl"  # reference variant (tight digit crops)
+  rf_metrics: "results/rf/rf_metrics.json"
+  rf_val_probs: "results/rf/rf_val_probs.npz"
+  rf_test_probs: "results/rf/rf_test_probs.npz"
+  fusion_metrics: "results/fusion/fusion_metrics.json"
+  fusion_val_probs: "results/fusion/fusion_val_probs.npz"
+  fusion_test_probs: "results/fusion/fusion_test_probs.npz"
+  decision_metrics: "results/decision/decision_metrics.json"
+  evaluation_dir: "results/evaluation"
+  evaluation_summary: "results/evaluation/evaluation_summary.json"
+  end_to_end_predictions: "results/evaluation/end_to_end_test_predictions.csv"
+  end_to_end_validation_predictions: "results/evaluation/end_to_end_validation_predictions.csv"
+  pca_weights: "models/pca.pkl"
+  kmeans_weights: "models/kmeans.pkl"
+  sensing_metrics: "results/sensing/sensing_metrics.json"
+  sensing_distance_histogram: "results/sensing/sensing_distance_histogram.png"   # written by src/evaluate.py (src/figures.py)
+  sensing_scores: "results/sensing/sensing_scores.csv"   # per-crop distance and flag
+
+image_sizes:
+  counter_crop: [400, 106]   # width, height for the CNN and SVM strips
+  digit_crop: [32, 32]       # width, height for HOG
+  yolo_imgsz: 640
+
+augmentation:
+  brightness_range: [0.5, 2.0]
+  rotation_deg: 5
+  gaussian_blur_prob: 0.3
+  gaussian_noise_prob: 0.3
+  horizontal_flip: false
+  crop_margin_frac: 0.10            # context kept around each counter, so crop jitter can go past the box
+  crop_jitter_range: [-0.02, 0.08]  # random shift of each crop edge, as a fraction of counter size
+  digit_permutation_prob: 0.8       # share of training samples replaced by a synthesised counter
+  digit_transition_prob: [0.0, 0.0, 0.02, 0.1, 0.3]   # per digit d1..d5: chance of a mid-roll digit.
+                                    # Ramped because only the last drums roll; one rate for all slots
+                                    # hurt the leading digits (tuned on validation).
+  digit_transition_split_range: [0.5, 0.85]  # share of a mid-roll slot showing the outgoing (labelled) digit
+  digit_permutation_same_polarity: true  # only paste digits from counters of the same polarity (light/dark)
+  digit_patch_feather_px: 3         # soft edge on pasted digit patches
+  digit_contrast_gain_range: [0.5, 2.0]  # limit when matching a patch's contrast to its slot
+  digit_permutation_cross_counter_prob: 0.8  # chance of pasting a digit from another counter
+                                             # (0.755 vs 0.6775 within-counter only, on validation)
+
+yolo:
+  base_model: "models/yolov8n.pt"
+  epochs: 50
+  batch: 8
+  imgsz: 640
+  patience: 10   # early stopping
+  workers: 2
+  cache: false   # do not cache decoded images in RAM
+  class_names: ["counter"]
+
+cnn:
+  epochs: 100
+  epochs_augmented: 1200        # augmented steps were still improving at 300 epochs, so a long budget
+  batch_size: 64
+  learning_rate: 0.001
+  grayscale: true               # single-channel input; digits need no colour
+  eval_crop_margin: 0.02        # val/test crops expanded by 2%; best on validation (0.775 -> 0.7925)
+  finetune:                     # final low-rate stage on mostly real counters; kept only if val improves
+    epochs: 60
+    learning_rate: 0.0001
+    early_stopping_patience: 15
+    digit_permutation_prob: 0.3           # share of samples still synthesised (within-counter only)
+    digit_permutation_cross_counter_prob: 0.0
+  mixed_precision: true         # float16 on GPU for ~2x speed; saved model is float32
+  data_workers: 4               # threads generating training batches
+  dropout: 0.5
+  early_stopping_patience: 10
+  early_stopping_patience_augmented: 30   # longer, as val loss is flat for the first ~20 epochs
+  reduce_lr_patience: 5
+  l2_reg: 0.001                 # ablation step 3: L2 weight decay on dense layers
+  lr_step_decay:                # ablation step 4: replaces ReduceLROnPlateau
+    drop_factor: 0.5
+    epochs_drop: 20
+    min_lr: 0.0001              # floor for the learning rate
+
+svm:
+  hog_orientations: 9
+  hog_pixels_per_cell: [8, 8]
+  hog_cells_per_block: [2, 2]
+  C_grid: [0.1, 1, 10, 100]
+  gamma_grid: ["scale", 0.01, 0.001]
+  max_train_samples: 4000   # subsample cap; probability=True is slow to train
+  # Two variants: "digit_crops" (tight digit boxes, reference) and "counter_strips"
+  # (equal-width strips, deployed, as that is what the pipeline feeds it).
+
+rf:
+  # Same HOG features, sample cap and splits as the SVM; only the classifier differs.
+  n_estimators_grid: [100, 300, 500]
+  max_depth_grid: [10, 20, null]
+
+# Fusion (Phase 6). Weights come from each member's validation accuracy, normalised
+# to 1. A reading's confidence is the lowest of its five digit confidences.
+fusion:
+  members:
+    - name: cnn                # grayscale CNN, +2% crop (deployed)
+      weights_file: "models/cnn_gray.h5"
+      val_probs: "results/cnn/cnn_val_probs.npz"
+      test_probs: "results/cnn/cnn_test_probs.npz"
+      input: {kind: counter, grayscale: true, crop_margin: 0.02}
+    - name: cnn_rgb            # RGB CNN, tight crop (earlier run, second ensemble member)
+      weights_file: "models/cnn_rgb.h5"
+      val_probs: "results/cnn/cnn_rgb_val_probs.npz"
+      test_probs: "results/cnn/cnn_rgb_test_probs.npz"
+      input: {kind: counter, grayscale: false, crop_margin: 0.0}
+    - name: svm                # HOG + SVM on strips (deployed)
+      weights_file: "models/svm.pkl"
+      val_probs: "results/svm/svm_val_probs.npz"
+      test_probs: "results/svm/svm_test_probs.npz"
+      input: {kind: strips, grayscale: true, crop_margin: 0.0}
+    - name: rf                 # HOG + Random Forest on strips (comparison only)
+      weights_file: "models/rf.pkl"
+      val_probs: "results/rf/rf_val_probs.npz"
+      test_probs: "results/rf/rf_test_probs.npz"
+      input: {kind: strips, grayscale: true, crop_margin: 0.0}
+  required_minimum: [cnn, svm]   # baseline combination; larger ones are compared against it
+  # Written by src/fusion.py (best combination on validation) - do not hand-edit.
+  selected_members: [cnn, cnn_rgb, svm]
+  weights: {cnn: 0.3459, cnn_rgb: 0.3437, svm: 0.3105}
+
+# Decision layer (Phase 8). Threshold chosen on validation by src/decision.py - do not hand-edit.
+decision:
+  confidence_threshold: 0.48
+
+# Image-quality gate (Phase 7). PCA + KMeans on training crops; a crop too far from
+# every cluster centre is flagged. Threshold chosen on validation.
+sensing:
+  pca_variance_target: 0.95    # keep components explaining 95% of variance
+  n_clusters: 3                # fixed, no search
+  # Written by src/sensing.py - do not hand-edit.
+  sensing_distance_threshold: 9911.4
+
+# Inference (src/pipeline.py) and evaluation (src/evaluate.py).
+pipeline:
+  detector_conf: 0.25        # minimum detector confidence; the best box above it is used
+  cnn_batch_size: 32         # CNN batch size in evaluation
+  tensorflow_cpu_only: true  # CPU only: the Apple Silicon GPU plugin gave unstable outputs
+
+evaluation:
+  failure_gallery_count: 24  # wrong readings shown in results/evaluation/failure_gallery.jpg

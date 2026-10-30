@@ -1,0 +1,15 @@
+.DS_Store
+/data/
+storage/
+__pycache__/
+
+# trained weights and per-round training archives are too large for git
+models/*.h5
+results/cnn/rounds/
+models/rf.pkl
+
+# jupyter autosaves
+.ipynb_checkpoints/
+
+# huggingface_hub metadata written next to downloaded weights
+models/.cache/

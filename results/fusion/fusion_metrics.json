@@ -1,0 +1,546 @@
+{
+  "weight_scheme": "proportional to mean validation per-digit accuracy, normalised over the combined members",
+  "reading_confidence": "minimum of the five per-digit confidences",
+  "singles": {
+    "cnn": {
+      "validation": {
+        "full_sequence_accuracy": 0.7975,
+        "per_digit_accuracy": [
+          0.945,
+          0.95,
+          0.9725,
+          0.95,
+          0.87
+        ]
+      },
+      "testing": {
+        "full_sequence_accuracy": 0.7775,
+        "per_digit_accuracy": [
+          0.94125,
+          0.95125,
+          0.95375,
+          0.95625,
+          0.87875
+        ]
+      }
+    },
+    "cnn_rgb": {
+      "validation": {
+        "full_sequence_accuracy": 0.775,
+        "per_digit_accuracy": [
+          0.9125,
+          0.955,
+          0.96,
+          0.9525,
+          0.8775
+        ]
+      },
+      "testing": {
+        "full_sequence_accuracy": 0.75625,
+        "per_digit_accuracy": [
+          0.94375,
+          0.9475,
+          0.9525,
+          0.95125,
+          0.85
+        ]
+      }
+    },
+    "svm": {
+      "validation": {
+        "full_sequence_accuracy": 0.5375,
+        "per_digit_accuracy": [
+          0.825,
+          0.8625,
+          0.91,
+          0.885,
+          0.725
+        ]
+      },
+      "testing": {
+        "full_sequence_accuracy": 0.55,
+        "per_digit_accuracy": [
+          0.85,
+          0.89375,
+          0.90625,
+          0.88625,
+          0.74875
+        ]
+      }
+    },
+    "rf": {
+      "validation": {
+        "full_sequence_accuracy": 0.385,
+        "per_digit_accuracy": [
+          0.7275,
+          0.775,
+          0.85,
+          0.835,
+          0.65
+        ]
+      },
+      "testing": {
+        "full_sequence_accuracy": 0.405,
+        "per_digit_accuracy": [
+          0.7975,
+          0.82125,
+          0.845,
+          0.8275,
+          0.67
+        ]
+      }
+    }
+  },
+  "combinations": {
+    "cnn+cnn_rgb": {
+      "members": [
+        "cnn",
+        "cnn_rgb"
+      ],
+      "weights": {
+        "cnn": 0.5016051364365971,
+        "cnn_rgb": 0.4983948635634029
+      },
+      "validation": {
+        "full_sequence_accuracy": 0.825,
+        "per_digit_accuracy": [
+          0.945,
+          0.96,
+          0.9725,
+          0.9625,
+          0.8975
+        ]
+      },
+      "testing": {
+        "full_sequence_accuracy": 0.80375,
+        "per_digit_accuracy": [
+          0.95125,
+          0.965,
+          0.96125,
+          0.96,
+          0.885
+        ]
+      }
+    },
+    "cnn+svm": {
+      "members": [
+        "cnn",
+        "svm"
+      ],
+      "weights": {
+        "cnn": 0.5269814502529511,
+        "svm": 0.4730185497470489
+      },
+      "validation": {
+        "full_sequence_accuracy": 0.805,
+        "per_digit_accuracy": [
+          0.95,
+          0.9575,
+          0.975,
+          0.955,
+          0.8725
+        ]
+      },
+      "testing": {
+        "full_sequence_accuracy": 0.7825,
+        "per_digit_accuracy": [
+          0.945,
+          0.9575,
+          0.9525,
+          0.95625,
+          0.8775
+        ]
+      }
+    },
+    "cnn+rf": {
+      "members": [
+        "cnn",
+        "rf"
+      ],
+      "weights": {
+        "cnn": 0.5498533724340176,
+        "rf": 0.45014662756598234
+      },
+      "validation": {
+        "full_sequence_accuracy": 0.795,
+        "per_digit_accuracy": [
+          0.9475,
+          0.945,
+          0.975,
+          0.9525,
+          0.8725
+        ]
+      },
+      "testing": {
+        "full_sequence_accuracy": 0.78875,
+        "per_digit_accuracy": [
+          0.95,
+          0.9575,
+          0.95375,
+          0.95125,
+          0.885
+        ]
+      }
+    },
+    "cnn_rgb+svm": {
+      "members": [
+        "cnn_rgb",
+        "svm"
+      ],
+      "weights": {
+        "cnn_rgb": 0.5253807106598986,
+        "svm": 0.4746192893401015
+      },
+      "validation": {
+        "full_sequence_accuracy": 0.775,
+        "per_digit_accuracy": [
+          0.9275,
+          0.955,
+          0.97,
+          0.95,
+          0.8525
+        ]
+      },
+      "testing": {
+        "full_sequence_accuracy": 0.7725,
+        "per_digit_accuracy": [
+          0.95625,
+          0.95875,
+          0.95375,
+          0.9525,
+          0.85125
+        ]
+      }
+    },
+    "cnn_rgb+rf": {
+      "members": [
+        "cnn_rgb",
+        "rf"
+      ],
+      "weights": {
+        "cnn_rgb": 0.5482636845203062,
+        "rf": 0.45173631547969395
+      },
+      "validation": {
+        "full_sequence_accuracy": 0.7825,
+        "per_digit_accuracy": [
+          0.9175,
+          0.9525,
+          0.9625,
+          0.955,
+          0.87
+        ]
+      },
+      "testing": {
+        "full_sequence_accuracy": 0.7825,
+        "per_digit_accuracy": [
+          0.9575,
+          0.95875,
+          0.955,
+          0.95375,
+          0.8625
+        ]
+      }
+    },
+    "svm+rf": {
+      "members": [
+        "svm",
+        "rf"
+      ],
+      "weights": {
+        "svm": 0.5229956494717215,
+        "rf": 0.4770043505282784
+      },
+      "validation": {
+        "full_sequence_accuracy": 0.5325,
+        "per_digit_accuracy": [
+          0.82,
+          0.8525,
+          0.9175,
+          0.89,
+          0.7325
+        ]
+      },
+      "testing": {
+        "full_sequence_accuracy": 0.53875,
+        "per_digit_accuracy": [
+          0.85125,
+          0.8925,
+          0.89875,
+          0.8775,
+          0.74125
+        ]
+      }
+    },
+    "cnn+cnn_rgb+svm": {
+      "members": [
+        "cnn",
+        "cnn_rgb",
+        "svm"
+      ],
+      "weights": {
+        "cnn": 0.34587714443829554,
+        "cnn_rgb": 0.34366353071389044,
+        "svm": 0.3104593248478141
+      },
+      "validation": {
+        "full_sequence_accuracy": 0.835,
+        "per_digit_accuracy": [
+          0.96,
+          0.97,
+          0.98,
+          0.9625,
+          0.8825
+        ]
+      },
+      "testing": {
+        "full_sequence_accuracy": 0.81375,
+        "per_digit_accuracy": [
+          0.95875,
+          0.9675,
+          0.96125,
+          0.965,
+          0.8875
+        ]
+      }
+    },
+    "cnn+cnn_rgb+rf": {
+      "members": [
+        "cnn",
+        "cnn_rgb",
+        "rf"
+      ],
+      "weights": {
+        "cnn": 0.35558505594538214,
+        "cnn_rgb": 0.3533093115873317,
+        "rf": 0.29110563246728616
+      },
+      "validation": {
+        "full_sequence_accuracy": 0.835,
+        "per_digit_accuracy": [
+          0.9475,
+          0.965,
+          0.9725,
+          0.9675,
+          0.9
+        ]
+      },
+      "testing": {
+        "full_sequence_accuracy": 0.80875,
+        "per_digit_accuracy": [
+          0.955,
+          0.965,
+          0.96,
+          0.96375,
+          0.8875
+        ]
+      }
+    },
+    "cnn+svm+rf": {
+      "members": [
+        "cnn",
+        "svm",
+        "rf"
+      ],
+      "weights": {
+        "cnn": 0.36815236599253875,
+        "svm": 0.33045356371490275,
+        "rf": 0.3013940702925584
+      },
+      "validation": {
+        "full_sequence_accuracy": 0.7825,
+        "per_digit_accuracy": [
+          0.9375,
+          0.9475,
+          0.9775,
+          0.945,
+          0.85
+        ]
+      },
+      "testing": {
+        "full_sequence_accuracy": 0.765,
+        "per_digit_accuracy": [
+          0.94125,
+          0.95375,
+          0.9525,
+          0.9525,
+          0.865
+        ]
+      }
+    },
+    "cnn_rgb+svm+rf": {
+      "members": [
+        "cnn_rgb",
+        "svm",
+        "rf"
+      ],
+      "weights": {
+        "cnn_rgb": 0.3666601062782917,
+        "svm": 0.33123400905333594,
+        "rf": 0.3021058846683724
+      },
+      "validation": {
+        "full_sequence_accuracy": 0.7675,
+        "per_digit_accuracy": [
+          0.9275,
+          0.945,
+          0.9725,
+          0.9475,
+          0.8475
+        ]
+      },
+      "testing": {
+        "full_sequence_accuracy": 0.755,
+        "per_digit_accuracy": [
+          0.95125,
+          0.95125,
+          0.95,
+          0.9525,
+          0.84125
+        ]
+      }
+    },
+    "cnn+cnn_rgb+svm+rf": {
+      "members": [
+        "cnn",
+        "cnn_rgb",
+        "svm",
+        "rf"
+      ],
+      "weights": {
+        "cnn": 0.269551466359977,
+        "cnn_rgb": 0.26782633697527314,
+        "svm": 0.24194939620471534,
+        "rf": 0.2206728004600345
+      },
+      "validation": {
+        "full_sequence_accuracy": 0.83,
+        "per_digit_accuracy": [
+          0.96,
+          0.9675,
+          0.98,
+          0.955,
+          0.875
+        ]
+      },
+      "testing": {
+        "full_sequence_accuracy": 0.81,
+        "per_digit_accuracy": [
+          0.9575,
+          0.9675,
+          0.96,
+          0.96125,
+          0.89
+        ]
+      }
+    }
+  },
+  "required_minimum": {
+    "key": "cnn+svm",
+    "members": [
+      "cnn",
+      "svm"
+    ],
+    "weights": {
+      "cnn": 0.5269814502529511,
+      "svm": 0.4730185497470489
+    },
+    "validation": {
+      "full_sequence_accuracy": 0.805,
+      "per_digit_accuracy": [
+        0.95,
+        0.9575,
+        0.975,
+        0.955,
+        0.8725
+      ]
+    },
+    "testing": {
+      "full_sequence_accuracy": 0.7825,
+      "per_digit_accuracy": [
+        0.945,
+        0.9575,
+        0.9525,
+        0.95625,
+        0.8775
+      ]
+    }
+  },
+  "selected": {
+    "key": "cnn+cnn_rgb+svm",
+    "members": [
+      "cnn",
+      "cnn_rgb",
+      "svm"
+    ],
+    "weights": {
+      "cnn": 0.34587714443829554,
+      "cnn_rgb": 0.34366353071389044,
+      "svm": 0.3104593248478141
+    },
+    "validation": {
+      "full_sequence_accuracy": 0.835,
+      "per_digit_accuracy": [
+        0.96,
+        0.97,
+        0.98,
+        0.9625,
+        0.8825
+      ]
+    },
+    "testing": {
+      "full_sequence_accuracy": 0.81375,
+      "per_digit_accuracy": [
+        0.95875,
+        0.9675,
+        0.96125,
+        0.965,
+        0.8875
+      ]
+    },
+    "validation_error_overlap": {
+      "wrong_readings_per_member": {
+        "cnn": 81,
+        "cnn_rgb": 90,
+        "svm": 185
+      },
+      "wrong_in_every_member": 47,
+      "wrong_after_fusion": 66,
+      "fixed_by_fusion": 138,
+      "broken_by_fusion": 0
+    },
+    "confidence": {
+      "validation": {
+        "median_confidence_correct": 0.7369117389479987,
+        "median_confidence_wrong": 0.30692790133603365
+      },
+      "testing": {
+        "median_confidence_correct": 0.7531453916626737,
+        "median_confidence_wrong": 0.33520724501112387
+      }
+    }
+  },
+  "best_single_model": {
+    "name": "cnn",
+    "validation": {
+      "full_sequence_accuracy": 0.7975,
+      "per_digit_accuracy": [
+        0.945,
+        0.95,
+        0.9725,
+        0.95,
+        0.87
+      ]
+    },
+    "testing": {
+      "full_sequence_accuracy": 0.7775,
+      "per_digit_accuracy": [
+        0.94125,
+        0.95125,
+        0.95375,
+        0.95625,
+        0.87875
+      ]
+    }
+  }
+}

@@ -1,0 +1,44 @@
+[
+ {
+  "file": "meter1212.jpg",
+  "label": "Clean, well lit",
+  "kind": "good",
+  "expect": "06617 \u00b7 approved, high confidence",
+  "thumb": "meter1212_thumb.jpg"
+ },
+ {
+  "file": "meter1817.jpg",
+  "label": "Clean, iPhone",
+  "kind": "good",
+  "expect": "56125 \u00b7 approved, high confidence",
+  "thumb": "meter1817_thumb.jpg"
+ },
+ {
+  "file": "meter1392.jpg",
+  "label": "Digit mid-roll",
+  "kind": "bad",
+  "expect": "26253 \u00b7 correct but low confidence, flagged for review",
+  "thumb": "meter1392_thumb.jpg"
+ },
+ {
+  "file": "meter1371.jpg",
+  "label": "Glare through cover",
+  "kind": "bad",
+  "expect": "sensing gate flags it; counter barely legible, reading wrong",
+  "thumb": "meter1371_thumb.jpg"
+ },
+ {
+  "file": "meter1305.jpg",
+  "label": "LCD meter (unusual)",
+  "kind": "bad",
+  "expect": "sensing gate flags it; reading unreliable",
+  "thumb": "meter1305_thumb.jpg"
+ },
+ {
+  "file": "meter1436.jpg",
+  "label": "Last digit ambiguous",
+  "kind": "bad",
+  "expect": "truth 20745, read 20742 \u00b7 approved but wrong",
+  "thumb": "meter1436_thumb.jpg"
+ }
+]
